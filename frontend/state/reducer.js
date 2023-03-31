@@ -1,4 +1,4 @@
-import { MOVE_CLOCKWISE } from './action-types';
+import { MOVE_CLOCKWISE, MOVE_COUNTERCLOCKWISE } from './action-types';
 
 // ❗ You don't need to add extra reducers to achieve MVP
 import { combineReducers } from 'redux'
@@ -11,7 +11,12 @@ function wheel(state = initialWheelState, action) {
   case MOVE_CLOCKWISE:
     return {
       ...state,
-      activeCog: (state.activeCog + 1) % 6,
+      activeCog: (state.activeCog + 1) % 6
+    }
+  case MOVE_COUNTERCLOCKWISE:
+    return {
+      ...state,
+      activeCog: (state.activeCog + 5) % 6
     }
  }
   return (state);

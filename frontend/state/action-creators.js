@@ -1,7 +1,19 @@
-// ❗ You don't need to add extra action creators to achieve MVP
-export function moveClockwise() { }
+import { MOVE_CLOCKWISE, MOVE_COUNTERCLOCKWISE } from "./action-types";
 
-export function moveCounterClockwise() { }
+// ❗ You don't need to add extra action creators to achieve MVP
+export function moveClockwise(state) {
+  return {
+    type: MOVE_CLOCKWISE,
+    payload: state
+  }
+}
+
+export function moveCounterClockwise(state) {
+  return {
+    type: MOVE_COUNTERCLOCKWISE,
+    payload: state
+  }
+}
 
 export function selectAnswer() { }
 

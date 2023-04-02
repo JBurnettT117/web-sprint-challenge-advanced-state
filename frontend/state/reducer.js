@@ -1,4 +1,4 @@
-import { MOVE_CLOCKWISE, MOVE_COUNTERCLOCKWISE } from './action-types';
+import { MOVE_CLOCKWISE, MOVE_COUNTERCLOCKWISE, FETCHING_QUIZ, SET_QUIZ_INTO_STATE, SET_SELECTED_ANSWER1,SET_SELECTED_ANSWER2 } from './action-types';
 
 // ❗ You don't need to add extra reducers to achieve MVP
 import { combineReducers } from 'redux'
@@ -22,16 +22,59 @@ function wheel(state = initialWheelState, action) {
   return (state);
 }
 
-const initialQuizState = null
+const initialQuizState = {
+  quiz_id:null,
+  question:null,
+  answerOneId:null,
+  answerOneText:null,
+  answerTwoId:null,
+  answerTwoText:null,
+  isDoneFetching: false,
+}
 
 function quiz(state = initialQuizState, action) {
-  
+  switch(action.type) {
+    case SET_QUIZ_INTO_STATE:
+      return {
+        ...state,
+        quiz_id: action.payload.quiz_id,
+        question: action.payload.question,
+        answerOneId: action.payload.answers[0].answer_id,
+        answerOneText: action.payload.answers[0].text,
+        answerTwoId: action.payload.answers[1].answer_id,
+        answerTwoText: action.payload.answers[1].text,
+        isDoneFetching: true
+        //add all of your quiz readout changes here
+      } 
+    case FETCHING_QUIZ:
+      return {
+        ...state,
+        isDoneFetching: false,
+      }
+  }
   return state
 }
 
-const initialSelectedAnswerState = null
+const initialSelectedAnswerState = {
+  firstAnswerSelected: false,
+  secondAnswerSelected: false
+}
 
 function selectedAnswer(state = initialSelectedAnswerState, action) {
+  switch (action.type) {
+    case SET_SELECTED_ANSWER1:
+      return {
+        ...state,
+        firstAnswerSelected:true,
+        secondAnswerSelected: false
+      }
+    case SET_SELECTED_ANSWER2:
+      return {
+        ...state,
+        firstAnswerSelected:false,
+        secondAnswerSelected:true
+      }
+  }
   return state
 }
 

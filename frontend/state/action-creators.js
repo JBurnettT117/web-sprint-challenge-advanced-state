@@ -1,4 +1,6 @@
-import { MOVE_CLOCKWISE, MOVE_COUNTERCLOCKWISE } from "./action-types";
+import axios from 'axios';
+
+import { MOVE_CLOCKWISE, MOVE_COUNTERCLOCKWISE, FETCHING_QUIZ, SET_QUIZ_INTO_STATE, SET_SELECTED_ANSWER1, SET_SELECTED_ANSWER2 } from "./action-types";
 
 // ❗ You don't need to add extra action creators to achieve MVP
 export function moveClockwise(state) {
@@ -15,7 +17,21 @@ export function moveCounterClockwise(state) {
   }
 }
 
-export function selectAnswer() { }
+export function selectAnswer(state, answerNumber) {
+  console.log(state);
+  if(answerNumber === 1){
+    return {
+      type: SET_SELECTED_ANSWER1,
+      payload: state,
+    } 
+  } else if(answerNumber === 2){
+    return {
+      type: SET_SELECTED_ANSWER2,
+      payload: state,
+    }
+  }
+  return 
+}
 
 export function setMessage() { }
 
@@ -26,13 +42,26 @@ export function inputChange() { }
 export function resetForm() { }
 
 // ❗ Async action creators
-export function fetchQuiz() {
+//this is for getting the question
+export function fetchQuiz(state) {
+
   return function (dispatch) {
     // First, dispatch an action to reset the quiz state (so the "Loading next quiz..." message can display)
-    // On successful GET:
-    // - Dispatch an action to send the obtained quiz to its state
+    dispatch({type: FETCHING_QUIZ})
+
+    axios.get("http://localhost:9000/api/quiz/next")
+    .then((res)=> {
+      // On successful GET:
+      // - Dispatch an action to send the obtained quiz to its state
+      dispatch({type: SET_QUIZ_INTO_STATE, payload: res.data})
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    
   }
 }
+//this is for answering the question
 export function postAnswer() {
   return function (dispatch) {
     // On successful POST:
@@ -41,6 +70,7 @@ export function postAnswer() {
     // - Dispatch the fetching of the next quiz
   }
 }
+//this is for posting your own question
 export function postQuiz() {
   return function (dispatch) {
     // On successful POST:

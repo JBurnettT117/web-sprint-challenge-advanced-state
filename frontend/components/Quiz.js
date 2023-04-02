@@ -29,14 +29,14 @@ function Quiz(props) {
             <div id="quizAnswers">
               <div className={`answer ${props.selectedAnswer.firstAnswerSelected ? "selected" : ""}`}>
                 {props.quiz.answerOneText}{/**first answer goes here */}
-                <button onClick={() => {selectAnswer(props, 1)}}>
+                <button onClick={() => {props.selectAnswer(props, 1)}}>
                 {props.selectedAnswer.firstAnswerSelected ? "SELECTED" : "Select"}{/**selected option should go here. */}
                 </button>
               </div>
 
               <div className={`answer ${props.selectedAnswer.secondAnswerSelected ? "selected" : ""}`}>
                 {props.quiz.answerTwoText}{/**second answer option goes here */}
-                <button onClick={() => {selectAnswer(props, 2)}}>
+                <button onClick={() => {props.selectAnswer(props, 2)}}>
                 {props.selectedAnswer.secondAnswerSelected ? "SELECTED" : "Select"}{/**selected option should go here */}
                 </button>
               </div>
@@ -63,8 +63,8 @@ const mapDispatchToProps = (dispatch) => {
     fetchQuiz: () => dispatch(fetchQuiz()),
     postAnswer: () => dispatch(postAnswer()),
     postQuiz: () => dispatch(postQuiz()),
-    selectAnswer: () => dispatch(selectAnswer()),
+    selectAnswer: (props, answerId) => dispatch(selectAnswer(props, answerId)),
   }
 }
 
-export default connect (mapStateToProps, mapDispatchToProps)(Quiz)
+export default connect (mapStateToProps, mapDispatchToProps)(Quiz,)

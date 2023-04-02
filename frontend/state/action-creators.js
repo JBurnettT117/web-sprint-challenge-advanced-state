@@ -18,19 +18,20 @@ export function moveCounterClockwise(state) {
 }
 
 export function selectAnswer(state, answerNumber) {
-  console.log(state);
+  console.log(state, answerNumber);
   if(answerNumber === 1){
+    console.log("one selected");
     return {
       type: SET_SELECTED_ANSWER1,
       payload: state,
     } 
   } else if(answerNumber === 2){
+    console.log("2 selected");
     return {
       type: SET_SELECTED_ANSWER2,
       payload: state,
     }
   }
-  return 
 }
 
 export function setMessage() { }

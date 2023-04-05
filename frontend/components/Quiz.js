@@ -8,9 +8,9 @@ function Quiz(props) {
     props.fetchQuiz()
   }, []);
 
-  const handleAnswerSubmit = () => {
+  const handleAnswerSubmit = (props) => {
 
-    props.postAnswer();
+    postAnswer(props);
   };
 
   const handleNewQuizSubmit = () => {
@@ -42,7 +42,7 @@ function Quiz(props) {
               </div>
             </div>
 
-            <button id="submitAnswerBtn">Submit answer</button>{/**needs to be disabled unless value.trim() or whatever is > 0 */}
+            <button id="submitAnswerBtn" onClick={handleAnswerSubmit}>Submit answer</button>{/**needs to be disabled unless value.trim() or whatever is > 0 */}
           </>
         ) : 'Loading next quiz...'
       }

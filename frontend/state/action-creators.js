@@ -63,8 +63,12 @@ export function fetchQuiz(state) {
   }
 }
 //this is for answering the question
-export function postAnswer() {
+export function postAnswer(state) {
+  console.log(state);
   return function (dispatch) {
+    // if(state.selectedAnswer.firstAnswerSelected){
+      //post first answer here
+    // }
     // On successful POST:
     // - Dispatch an action to reset the selected answer state
     // - Dispatch an action to set the server message to state

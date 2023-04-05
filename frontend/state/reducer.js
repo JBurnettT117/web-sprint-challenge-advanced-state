@@ -61,7 +61,6 @@ const initialSelectedAnswerState = {
 }
 
 function selectedAnswer(state = initialSelectedAnswerState, action) {
-  console.log("hello from reducer");
   switch (action.type) {
     case SET_SELECTED_ANSWER1:
       return {

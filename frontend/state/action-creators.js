@@ -1,6 +1,13 @@
 import axios from 'axios';
 
-import { MOVE_CLOCKWISE, MOVE_COUNTERCLOCKWISE, FETCHING_QUIZ, SET_QUIZ_INTO_STATE, SET_SELECTED_ANSWER1, SET_SELECTED_ANSWER2 } from "./action-types";
+import { MOVE_CLOCKWISE, 
+  MOVE_COUNTERCLOCKWISE, 
+  FETCHING_QUIZ, 
+  SET_QUIZ_INTO_STATE, 
+  SET_SELECTED_ANSWER1, 
+  SET_SELECTED_ANSWER2,
+  SET_INFO_MESSAGE, 
+} from "./action-types";
 
 // ❗ You don't need to add extra action creators to achieve MVP
 export function moveClockwise(state) {
@@ -18,15 +25,12 @@ export function moveCounterClockwise(state) {
 }
 
 export function selectAnswer(state, answerNumber) {
-  console.log(state, answerNumber);
   if(answerNumber === 1){
-    console.log("one selected");
     return {
       type: SET_SELECTED_ANSWER1,
       payload: state,
     } 
   } else if(answerNumber === 2){
-    console.log("2 selected");
     return {
       type: SET_SELECTED_ANSWER2,
       payload: state,
@@ -64,11 +68,17 @@ export function fetchQuiz(state) {
 }
 //this is for answering the question
 export function postAnswer(state) {
-  console.log(state);
   return function (dispatch) {
-    // if(state.selectedAnswer.firstAnswerSelected){
-      //post first answer here
-    // }
+    console.log(state);
+    if(state.selectedAnswer.firstAnswerSelected === true){
+      const payload = {quiz_id: state.quiz.quiz_id ,answer_id: state.quiz.answerOneId }
+      console.log(state.quiz.answerOneId);
+      axios.post("http://localhost:9000/api/quiz/answer", payload)
+        .then((res) => {
+          console.log(res.data.message);
+          dispatch ({type: SET_INFO_MESSAGE, payload: res.data})
+        })
+    }
     // On successful POST:
     // - Dispatch an action to reset the selected answer state
     // - Dispatch an action to set the server message to state

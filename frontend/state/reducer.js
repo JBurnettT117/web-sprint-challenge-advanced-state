@@ -1,4 +1,11 @@
-import { MOVE_CLOCKWISE, MOVE_COUNTERCLOCKWISE, FETCHING_QUIZ, SET_QUIZ_INTO_STATE, SET_SELECTED_ANSWER1,SET_SELECTED_ANSWER2 } from './action-types';
+import { MOVE_CLOCKWISE, 
+  MOVE_COUNTERCLOCKWISE, 
+  FETCHING_QUIZ, 
+  SET_QUIZ_INTO_STATE, 
+  SET_SELECTED_ANSWER1,
+  SET_SELECTED_ANSWER2, 
+  SET_INFO_MESSAGE 
+} from './action-types';
 
 // ❗ You don't need to add extra reducers to achieve MVP
 import { combineReducers } from 'redux'
@@ -81,6 +88,13 @@ function selectedAnswer(state = initialSelectedAnswerState, action) {
 const initialMessageState = ''
 
 function infoMessage(state = initialMessageState, action) {
+  switch (action.type) {
+    case SET_INFO_MESSAGE:
+      return {
+        ...state,
+        initialMessageState: action.payload.message,
+      }
+  }
   return state
 }
 
@@ -88,6 +102,7 @@ const initialFormState = {
   newQuestion: '',
   newTrueAnswer: '',
   newFalseAnswer: '',
+  submitQuizDisabled: false,
 }
 
 function form(state = initialFormState, action) {

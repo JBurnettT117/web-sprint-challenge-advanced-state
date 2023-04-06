@@ -6,11 +6,11 @@ function Quiz(props) {
 
   useEffect(() => {
     props.fetchQuiz()
+    console.log(props);
   }, []);
 
   const handleAnswerSubmit = (props) => {
-
-    postAnswer(props);
+    props.postAnswer(props);
   };
 
   const handleNewQuizSubmit = () => {
@@ -42,7 +42,7 @@ function Quiz(props) {
               </div>
             </div>
 
-            <button id="submitAnswerBtn" onClick={handleAnswerSubmit}>Submit answer</button>{/**needs to be disabled unless value.trim() or whatever is > 0 */}
+            <button id="submitAnswerBtn" disabled={false} onClick={() =>{handleAnswerSubmit(props)}}>Submit answer</button>{/**needs to be disabled unless value.trim() or whatever is > 0 */}
           </>
         ) : 'Loading next quiz...'
       }
@@ -55,13 +55,14 @@ const mapStateToProps = (state) => {
   return {
     quiz: state.quiz,
     selectedAnswer: state.selectedAnswer,
+    wheel: state.wheel
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchQuiz: () => dispatch(fetchQuiz()),
-    postAnswer: () => dispatch(postAnswer()),
+    postAnswer: (props) => dispatch(postAnswer(props)),
     postQuiz: () => dispatch(postQuiz()),
     selectAnswer: (props, answerId) => dispatch(selectAnswer(props, answerId)),
   }

@@ -58,7 +58,7 @@ export function fetchQuiz(state) {
     .then((res)=> {
       // On successful GET:
       // - Dispatch an action to send the obtained quiz to its state
-      dispatch({type: SET_QUIZ_INTO_STATE, payload: res.data})
+      dispatch({type: SET_QUIZ_INTO_STATE, payload: res.data, state})
     })
     .catch((err) => {
       console.log(err);
@@ -69,19 +69,21 @@ export function fetchQuiz(state) {
 //this is for answering the question
 export function postAnswer(state) {
   return function (dispatch) {
-    console.log(state);
     if(state.selectedAnswer.firstAnswerSelected === true){
       const payload = {quiz_id: state.quiz.quiz_id ,answer_id: state.quiz.answerOneId }
-      console.log(state.quiz.answerOneId);
       axios.post("http://localhost:9000/api/quiz/answer", payload)
         .then((res) => {
-          console.log(res.data.message);
-          dispatch ({type: SET_INFO_MESSAGE, payload: res.data})
+          dispatch ({type: SET_INFO_MESSAGE, payload: res.data, state })
         })
-    }
+    } else if(state.selectedAnswer.secondAnswerSelected === true){
+      const payload = {quiz_id: state.quiz.quiz_id ,answer_id: state.quiz.answerTwoId }
+      axios.post("http://localhost:9000/api/quiz/answer", payload)
+        .then((res) => {
+          dispatch ({type: SET_INFO_MESSAGE, payload: res.data, state })
+        })
+    };
+    state.fetchQuiz(state);
     // On successful POST:
-    // - Dispatch an action to reset the selected answer state
-    // - Dispatch an action to set the server message to state
     // - Dispatch the fetching of the next quiz
   }
 }

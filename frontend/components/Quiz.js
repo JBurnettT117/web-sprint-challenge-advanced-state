@@ -5,8 +5,7 @@ import { fetchQuiz, selectAnswer, postAnswer, postQuiz } from '../state/action-c
 function Quiz(props) {
 
   useEffect(() => {
-    props.fetchQuiz()
-    console.log(props);
+    props.fetchQuiz(props)
   }, []);
 
   const handleAnswerSubmit = (props) => {
@@ -42,7 +41,7 @@ function Quiz(props) {
               </div>
             </div>
 
-            <button id="submitAnswerBtn" disabled={false} onClick={() =>{handleAnswerSubmit(props)}}>Submit answer</button>{/**needs to be disabled unless value.trim() or whatever is > 0 */}
+            <button id="submitAnswerBtn" disabled={props.selectedAnswer.firstAnswerSelected || props.selectedAnswer.secondAnswerSelected ? false : true} onClick={() =>{handleAnswerSubmit(props)}}>Submit answer</button>{/**needs to be disabled unless value.trim() or whatever is > 0 */}
           </>
         ) : 'Loading next quiz...'
       }
@@ -55,17 +54,17 @@ const mapStateToProps = (state) => {
   return {
     quiz: state.quiz,
     selectedAnswer: state.selectedAnswer,
-    wheel: state.wheel
+    message: state.infoMessage
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchQuiz: () => dispatch(fetchQuiz()),
+    fetchQuiz: (props) => dispatch(fetchQuiz(props)),
     postAnswer: (props) => dispatch(postAnswer(props)),
     postQuiz: () => dispatch(postQuiz()),
     selectAnswer: (props, answerId) => dispatch(selectAnswer(props, answerId)),
   }
 }
 
-export default connect (mapStateToProps, mapDispatchToProps)(Quiz,)
+export default connect (mapStateToProps, mapDispatchToProps)(Quiz)

@@ -81,18 +81,24 @@ function selectedAnswer(state = initialSelectedAnswerState, action) {
         firstAnswerSelected:false,
         secondAnswerSelected:true
       }
+    case SET_INFO_MESSAGE:
+      return {
+        ...state,
+        firstAnswerSelected: false,
+        secondAnswerSelected: false
+      }
   }
   return state
 }
 
-const initialMessageState = ''
+const initialMessageState = {message: ''}
 
 function infoMessage(state = initialMessageState, action) {
   switch (action.type) {
     case SET_INFO_MESSAGE:
       return {
         ...state,
-        initialMessageState: action.payload.message,
+        message: action.payload.message
       }
   }
   return state

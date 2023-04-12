@@ -7,6 +7,7 @@ import { MOVE_CLOCKWISE,
   SET_SELECTED_ANSWER1, 
   SET_SELECTED_ANSWER2,
   SET_INFO_MESSAGE, 
+  INPUT_CHANGE,
 } from "./action-types";
 
 // ❗ You don't need to add extra action creators to achieve MVP
@@ -42,7 +43,16 @@ export function setMessage() { }
 
 export function setQuiz() { }
 
-export function inputChange() { }
+export function inputChange(field, value, props) {
+  const newQuestionLength = props.newQuestion;
+  const newTrueAnswerLength = state.newTrueAnswer;
+  const newFalseAnswerLength = state.newFalseAnswer;
+  console.log(newQuestionLength, newTrueAnswerLength, newFalseAnswerLength);
+  return {
+    type: INPUT_CHANGE,
+    payload: field, value, props
+  }
+}
 
 export function resetForm() { }
 
@@ -81,7 +91,7 @@ export function postAnswer(state) {
         .then((res) => {
           dispatch ({type: SET_INFO_MESSAGE, payload: res.data, state })
         })
-    };
+    };//submit quiz button needs to be disabled until answer is selected
     state.fetchQuiz(state);
     // On successful POST:
     // - Dispatch the fetching of the next quiz

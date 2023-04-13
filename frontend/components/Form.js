@@ -4,14 +4,15 @@ import {setQuiz, inputChange, disableChange, postQuiz} from '../state/action-cre
 
 export function Form(props) {
 
+  const { newQuestion, newTrueAnswer, newFalseAnswer } = props.form;
+
   useEffect(() => {
-    console.log(props.form.newQuestion.trim().length)
     if(props.form.newQuestion.trim().length > 0 && props.form.newTrueAnswer.trim().length > 0 && props.form.newFalseAnswer.trim().length > 0){
       props.disableChange(props);//this is occuring only when everthing has 2 f's implying its checking before the state change resolves
     }
-  }, [props.form.newQuestion || props.form.newTrueAnswer || props.form.newFalseAnswer]);
+  }, [newQuestion, newTrueAnswer, newFalseAnswer]);
 
-  const onChange = (evt, props) => {
+  const onChange = (evt) => {
     const field = evt.target.id;
     const value = evt.target.value
     props.inputChange(field, value, props);

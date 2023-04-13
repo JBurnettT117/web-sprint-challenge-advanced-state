@@ -8,6 +8,7 @@ import { MOVE_CLOCKWISE,
   SET_SELECTED_ANSWER2,
   SET_INFO_MESSAGE, 
   INPUT_CHANGE,
+  DISABLE_CHANGE,
 } from "./action-types";
 
 // ❗ You don't need to add extra action creators to achieve MVP
@@ -44,13 +45,16 @@ export function setMessage() { }
 export function setQuiz() { }
 
 export function inputChange(field, value, props) {
-  const newQuestionLength = props.newQuestion;
-  const newTrueAnswerLength = state.newTrueAnswer;
-  const newFalseAnswerLength = state.newFalseAnswer;
-  console.log(newQuestionLength, newTrueAnswerLength, newFalseAnswerLength);
   return {
     type: INPUT_CHANGE,
     payload: field, value, props
+  }
+}
+
+export function disableChange(props) {
+  return {
+    type: DISABLE_CHANGE,
+    payload: props
   }
 }
 

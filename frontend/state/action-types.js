@@ -8,3 +8,4 @@ export const SET_SELECTED_ANSWER2 = 'SET_SELECTED_ANSWER2'//for quiz page
 export const SET_INFO_MESSAGE = 'SET_INFO_MESSAGE'//probably used for the quiz state. double check example
 export const INPUT_CHANGE = 'INPUT_CHANGE'//this is all you need for the form page
 export const RESET_FORM = 'RESET_FORM'//use this for when you submit
+export const DISABLE_CHANGE = 'DISABLE_CHANGE'

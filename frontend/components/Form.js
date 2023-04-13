@@ -1,8 +1,15 @@
 import React, {useEffect} from 'react'
 import { connect } from 'react-redux'
-import {setQuiz, inputChange, postQuiz} from '../state/action-creators'
+import {setQuiz, inputChange, disableChange, postQuiz} from '../state/action-creators'
 
 export function Form(props) {
+
+  useEffect(() => {
+    console.log(props.form.newQuestion.trim().length)
+    if(props.form.newQuestion.trim().length > 0 && props.form.newTrueAnswer.trim().length > 0 && props.form.newFalseAnswer.trim().length > 0){
+      props.disableChange(props);//this is occuring only when everthing has 2 f's implying its checking before the state change resolves
+    }
+  }, [props.form.newQuestion || props.form.newTrueAnswer || props.form.newFalseAnswer]);
 
   const onChange = (evt, props) => {
     const field = evt.target.id;
@@ -37,7 +44,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setQuiz: () => dispatch(setQuiz()),
     inputChange: (field, value, props) => dispatch(inputChange(field, value, props)),
-    
+    disableChange: (props) => dispatch(disableChange(props))
   }
 }
 

@@ -5,7 +5,8 @@ import { MOVE_CLOCKWISE,
   SET_SELECTED_ANSWER1,
   SET_SELECTED_ANSWER2, 
   SET_INFO_MESSAGE, 
-  INPUT_CHANGE
+  INPUT_CHANGE,
+  DISABLE_CHANGE,
 } from './action-types';
 
 // ❗ You don't need to add extra reducers to achieve MVP
@@ -109,24 +110,20 @@ const initialFormState = {
   newQuestion: '',
   newTrueAnswer: '',
   newFalseAnswer: '',
-  submitQuizDisabled: false,
+  submitQuizDisabled: true,
 }
 
 function form(state = initialFormState, action) {
-  console.log(action);
-  console.log(state);
-  // const newQuestionLength = state.newQuestion.value.length;
-  // const newTrueAnswerLength = state.newTrueAnswer.value.trim().length;
-  // const newFalseAnswerLength = state.newFalseAnswer.value.trim().length;
-  // console.log(newQuestionLength, newTrueAnswerLength, newFalseAnswerLength);
   switch (action.type) {
     case INPUT_CHANGE:
-      if(state.newQuestion.value.trim().length > 0){
-        console.log("yes it is true");
-      }
       return {
         ...state,
         [action.payload]: action.value,
+      }
+    case DISABLE_CHANGE:
+      return {
+        ...state,
+        submitQuizDisabled: false,
       }
   }
   return state

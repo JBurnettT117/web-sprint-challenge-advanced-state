@@ -8,7 +8,7 @@ export function Form(props) {
 
   useEffect(() => {
     if(props.form.newQuestion.trim().length > 0 && props.form.newTrueAnswer.trim().length > 0 && props.form.newFalseAnswer.trim().length > 0){
-      props.disableChange(props);//this is occuring only when everthing has 2 f's implying its checking before the state change resolves
+      props.disableChange(props);
     }
   }, [newQuestion, newTrueAnswer, newFalseAnswer]);
 
@@ -19,10 +19,9 @@ export function Form(props) {
   }
 
   const onSubmit = evt => {
-
+    evt.preventDefault();
+    props.postQuiz(props);
   }
-
-  console.log(props);
 
   return (
     <form id="form" onSubmit={onSubmit}>
@@ -30,7 +29,7 @@ export function Form(props) {
       <input maxLength={50} onChange={(evt) => onChange(evt, props)} id="newQuestion" placeholder="Enter question" />
       <input maxLength={50} onChange={(evt) => onChange(evt, props)} id="newTrueAnswer" placeholder="Enter true answer" />
       <input maxLength={50} onChange={(evt) => onChange(evt, props)} id="newFalseAnswer" placeholder="Enter false answer" />
-      <button id="submitNewQuizBtn" disabled={props.form.submitQuizDisabled}>Submit new quiz</button>
+      <button id="submitNewQuizBtn" disabled={props.form.submitQuizDisabled} onClick={onSubmit}>Submit new quiz</button>
     </form>
   )
 }
@@ -38,11 +37,13 @@ export function Form(props) {
 const mapStateToProps = (state) => {
   return {
     form: state.form,
+    message: state.infoMessage
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    postQuiz: (props) => dispatch(postQuiz(props)),
     setQuiz: () => dispatch(setQuiz()),
     inputChange: (field, value, props) => dispatch(inputChange(field, value, props)),
     disableChange: (props) => dispatch(disableChange(props))

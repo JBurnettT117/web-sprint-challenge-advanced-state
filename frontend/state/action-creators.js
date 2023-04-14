@@ -102,8 +102,19 @@ export function postAnswer(state) {
   }
 }
 //this is for posting your own question
-export function postQuiz() {
+export function postQuiz(state) {
   return function (dispatch) {
+    const payload = {question_text: state.form.newQuestion, 
+      true_answer_text: state.form.newTrueAnswer,
+      false_answer_text: state.form.newFalseAnswer,
+    };
+    axios.post("http://localhost:9000/api/quiz/new", payload)
+      .then(res => {if(res.status === 201){
+        console.log("res pinged");
+        dispatch ({type: SET_INFO_MESSAGE, payload:{ message: `Congrats: "${res.data.question}" is a great question!`, state}})
+      }else{
+        console.log("Error: ", res);
+      }})
     // On successful POST:
     // - Dispatch the correct message to the the appropriate state
     // - Dispatch the resetting of the form

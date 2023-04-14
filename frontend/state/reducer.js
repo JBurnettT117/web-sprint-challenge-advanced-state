@@ -98,6 +98,7 @@ const initialMessageState = {message: ''}
 function infoMessage(state = initialMessageState, action) {
   switch (action.type) {
     case SET_INFO_MESSAGE:
+      console.log("reducer pinged", state, action);
       return {
         ...state,
         message: action.payload.message

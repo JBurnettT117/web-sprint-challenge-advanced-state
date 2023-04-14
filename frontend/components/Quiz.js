@@ -5,7 +5,9 @@ import { fetchQuiz, selectAnswer, postAnswer, postQuiz } from '../state/action-c
 function Quiz(props) {
 
   useEffect(() => {
-    props.fetchQuiz(props)
+    if(props.quiz.quiz_id === null){
+      props.fetchQuiz(props);
+    }
   }, []);
 
   const handleAnswerSubmit = (props) => {

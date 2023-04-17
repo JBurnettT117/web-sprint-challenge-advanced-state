@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import { connect } from 'react-redux'
-import {setQuiz, inputChange, disableChange, postQuiz} from '../state/action-creators'
+import {setQuiz, inputChange, disableChange, postQuiz, resetForm} from '../state/action-creators'
 
 export function Form(props) {
 
@@ -21,14 +21,15 @@ export function Form(props) {
   const onSubmit = evt => {
     evt.preventDefault();
     props.postQuiz(props);
+    props.resetForm();
   }
 
   return (
     <form id="form" onSubmit={onSubmit}>
       <h2>Create New Quiz</h2>
-      <input maxLength={50} onChange={(evt) => onChange(evt, props)} id="newQuestion" placeholder="Enter question" />
-      <input maxLength={50} onChange={(evt) => onChange(evt, props)} id="newTrueAnswer" placeholder="Enter true answer" />
-      <input maxLength={50} onChange={(evt) => onChange(evt, props)} id="newFalseAnswer" placeholder="Enter false answer" />
+      <input maxLength={50} onChange={(evt) => onChange(evt, props)} id="newQuestion" placeholder="Enter question" value={props.form.newQuestion}/>
+      <input maxLength={50} onChange={(evt) => onChange(evt, props)} id="newTrueAnswer" placeholder="Enter true answer" value={props.form.newTrueAnswer}/>
+      <input maxLength={50} onChange={(evt) => onChange(evt, props)} id="newFalseAnswer" placeholder="Enter false answer" value={props.form.newFalseAnswer}/>
       <button id="submitNewQuizBtn" disabled={props.form.submitQuizDisabled} onClick={onSubmit}>Submit new quiz</button>
     </form>
   )
@@ -46,7 +47,8 @@ const mapDispatchToProps = (dispatch) => {
     postQuiz: (props) => dispatch(postQuiz(props)),
     setQuiz: () => dispatch(setQuiz()),
     inputChange: (field, value, props) => dispatch(inputChange(field, value, props)),
-    disableChange: (props) => dispatch(disableChange(props))
+    disableChange: (props) => dispatch(disableChange(props)),
+    resetForm: () => dispatch(resetForm())
   }
 }
 

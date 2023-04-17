@@ -7,6 +7,7 @@ import { MOVE_CLOCKWISE,
   SET_INFO_MESSAGE, 
   INPUT_CHANGE,
   DISABLE_CHANGE,
+  RESET_FORM
 } from './action-types';
 
 // ❗ You don't need to add extra reducers to achieve MVP
@@ -98,7 +99,6 @@ const initialMessageState = {message: ''}
 function infoMessage(state = initialMessageState, action) {
   switch (action.type) {
     case SET_INFO_MESSAGE:
-      console.log("reducer pinged", state, action);
       return {
         ...state,
         message: action.payload.message
@@ -126,8 +126,11 @@ function form(state = initialFormState, action) {
         ...state,
         submitQuizDisabled: false,
       }
+    case RESET_FORM:
+      return  form = initialFormState;
+    default:
+      return state;
   }
-  return state
 }
 
 export default combineReducers({ wheel, quiz, selectedAnswer, infoMessage, form })

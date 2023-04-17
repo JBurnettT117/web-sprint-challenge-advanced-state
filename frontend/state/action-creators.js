@@ -9,6 +9,7 @@ import { MOVE_CLOCKWISE,
   SET_INFO_MESSAGE, 
   INPUT_CHANGE,
   DISABLE_CHANGE,
+  RESET_FORM
 } from "./action-types";
 
 // ❗ You don't need to add extra action creators to achieve MVP
@@ -58,7 +59,11 @@ export function disableChange(props) {
   }
 }
 
-export function resetForm() { }
+export function resetForm() {
+  return {
+    type: RESET_FORM
+  }
+}
 
 // ❗ Async action creators
 //this is for getting the question
@@ -86,13 +91,13 @@ export function postAnswer(state) {
     if(state.selectedAnswer.firstAnswerSelected === true){
       const payload = {quiz_id: state.quiz.quiz_id ,answer_id: state.quiz.answerOneId }
       axios.post("http://localhost:9000/api/quiz/answer", payload)
-        .then((res) => {
+        .then((res) => {console.log(res.data);
           dispatch ({type: SET_INFO_MESSAGE, payload: res.data, state })
         })
     } else if(state.selectedAnswer.secondAnswerSelected === true){
       const payload = {quiz_id: state.quiz.quiz_id ,answer_id: state.quiz.answerTwoId }
       axios.post("http://localhost:9000/api/quiz/answer", payload)
-        .then((res) => {
+        .then((res) => {console.log(res.data);
           dispatch ({type: SET_INFO_MESSAGE, payload: res.data, state })
         })
     };//submit quiz button needs to be disabled until answer is selected
@@ -110,11 +115,13 @@ export function postQuiz(state) {
     };
     axios.post("http://localhost:9000/api/quiz/new", payload)
       .then(res => {if(res.status === 201){
-        console.log("res pinged");
+        console.log(res);
         dispatch ({type: SET_INFO_MESSAGE, payload:{ message: `Congrats: "${res.data.question}" is a great question!`, state}})
+        //put the form reset here
       }else{
         console.log("Error: ", res);
       }})
+      resetForm();
     // On successful POST:
     // - Dispatch the correct message to the the appropriate state
     // - Dispatch the resetting of the form

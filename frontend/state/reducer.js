@@ -6,7 +6,7 @@ import { MOVE_CLOCKWISE,
   SET_SELECTED_ANSWER2, 
   SET_INFO_MESSAGE, 
   INPUT_CHANGE,
-  DISABLE_CHANGE,
+  // DISABLE_CHANGE,
   RESET_FORM
 } from './action-types';
 
@@ -111,7 +111,7 @@ const initialFormState = {
   newQuestion: '',
   newTrueAnswer: '',
   newFalseAnswer: '',
-  submitQuizDisabled: true,
+  // submitQuizDisabled: true,
 }
 
 function form(state = initialFormState, action) {
@@ -121,11 +121,11 @@ function form(state = initialFormState, action) {
         ...state,
         [action.payload]: action.value,
       }
-    case DISABLE_CHANGE:
-      return {
-        ...state,
-        submitQuizDisabled: false,
-      }
+    // case DISABLE_CHANGE:
+    //   return {
+    //     ...state,
+    //     submitQuizDisabled: false,
+    //   }
     case RESET_FORM:
       return  form = initialFormState;
     default:

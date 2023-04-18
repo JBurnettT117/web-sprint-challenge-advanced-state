@@ -8,7 +8,7 @@ import { MOVE_CLOCKWISE,
   SET_SELECTED_ANSWER2,
   SET_INFO_MESSAGE, 
   INPUT_CHANGE,
-  DISABLE_CHANGE,
+  // DISABLE_CHANGE,
   RESET_FORM
 } from "./action-types";
 
@@ -52,12 +52,12 @@ export function inputChange(field, value, props) {
   }
 }
 
-export function disableChange(props) {
-  return {
-    type: DISABLE_CHANGE,
-    payload: props
-  }
-}
+// export function disableChange(props) {
+//   return {
+//     type: DISABLE_CHANGE,
+//     payload: props
+//   }
+// }
 
 export function resetForm() {
   return {

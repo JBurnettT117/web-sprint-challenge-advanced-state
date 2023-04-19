@@ -93,15 +93,16 @@ export function postAnswer(state) {
       axios.post("http://localhost:9000/api/quiz/answer", payload)
         .then((res) => {console.log(res.data);
           dispatch ({type: SET_INFO_MESSAGE, payload: res.data, state })
+          state.fetchQuiz(state);
         })
     } else if(state.selectedAnswer.secondAnswerSelected === true){
       const payload = {quiz_id: state.quiz.quiz_id ,answer_id: state.quiz.answerTwoId }
       axios.post("http://localhost:9000/api/quiz/answer", payload)
         .then((res) => {console.log(res.data);
           dispatch ({type: SET_INFO_MESSAGE, payload: res.data, state })
+          state.fetchQuiz(state);
         })
     };//submit quiz button needs to be disabled until answer is selected
-    state.fetchQuiz(state);
     // On successful POST:
     // - Dispatch the fetching of the next quiz
   }

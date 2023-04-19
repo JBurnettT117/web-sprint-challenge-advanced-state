@@ -118,10 +118,9 @@ export function postQuiz(state) {
         console.log(res);
         dispatch ({type: SET_INFO_MESSAGE, payload:{ message: `Congrats: "${res.data.question}" is a great question!`, state}})
         //put the form reset here
-      }else{
+        }else{
         console.log("Error: ", res);
-      }})
-      resetForm();
+        }})
     // On successful POST:
     // - Dispatch the correct message to the the appropriate state
     // - Dispatch the resetting of the form

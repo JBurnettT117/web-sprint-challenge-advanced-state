@@ -16,29 +16,28 @@ function Quiz(props) {
 
   const handleNewQuizSubmit = () => {
 
-    props.postQuiz();//this might be for the form tab and not this tab
+    props.postQuiz();
   }
   
   return (
     <div id="wrapper">
       {
-        // quiz already in state? Let's use that, otherwise render "Loading next quiz..."
         props.quiz.isDoneFetching ? (
           <>
-            <h2>{props.quiz.question}</h2>{/*question goes here */}
+            <h2>{props.quiz.question}</h2>
 
             <div id="quizAnswers">
               <div className={`answer ${props.selectedAnswer.firstAnswerSelected ? "selected" : ""}`}>
-                {props.quiz.answerOneText}{/**first answer goes here */}
+                {props.quiz.answerOneText}
                 <button onClick={() => {props.selectAnswer(props, 1)}}>
-                {props.selectedAnswer.firstAnswerSelected ? "SELECTED" : "Select"}{/**selected option should go here. */}
+                {props.selectedAnswer.firstAnswerSelected ? "SELECTED" : "Select"}
                 </button>
               </div>
 
               <div className={`answer ${props.selectedAnswer.secondAnswerSelected ? "selected" : ""}`}>
-                {props.quiz.answerTwoText}{/**second answer option goes here */}
+                {props.quiz.answerTwoText}
                 <button onClick={() => {props.selectAnswer(props, 2)}}>
-                {props.selectedAnswer.secondAnswerSelected ? "SELECTED" : "Select"}{/**selected option should go here */}
+                {props.selectedAnswer.secondAnswerSelected ? "SELECTED" : "Select"}
                 </button>
               </div>
             </div>

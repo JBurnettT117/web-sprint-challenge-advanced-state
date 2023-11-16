@@ -14,7 +14,7 @@ function Wheel(props) {
         <div className={`cog ${activeCog === 2 ? ' active' : ''}`} style={{ "--i": 2 }}>{activeCog === 2 ? "B" : ""}</div>
         <div className={`cog ${activeCog === 3 ? ' active' : ''}`} style={{ "--i": 3 }}>{activeCog === 3 ? "B" : ""}</div>
         <div className={`cog ${activeCog === 4 ? ' active' : ''}`} style={{ "--i": 4 }}>{activeCog === 4 ? "B" : ""}</div>
-        <div className={`cog ${activeCog === 5 ? ' active' : ''}`} style={{ "--i": 5 }}>{activeCog === 5 ? "B" : ""}</div>{/* --i is a custom CSS property, no need to touch that nor the style object */}
+        <div className={`cog ${activeCog === 5 ? ' active' : ''}`} style={{ "--i": 5 }}>{activeCog === 5 ? "B" : ""}</div>
       </div>
       <div id="keypad">
         <button id="counterClockwiseBtn" onClick={() => {moveCounterClockwise(activeCog)}} >Counter clockwise</button>

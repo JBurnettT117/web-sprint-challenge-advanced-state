@@ -6,11 +6,9 @@ import { MOVE_CLOCKWISE,
   SET_SELECTED_ANSWER2, 
   SET_INFO_MESSAGE, 
   INPUT_CHANGE,
-  // DISABLE_CHANGE,
   RESET_FORM
 } from './action-types';
 
-// ❗ You don't need to add extra reducers to achieve MVP
 import { combineReducers } from 'redux'
 
 const initialWheelState = {activeCog: 0}
@@ -54,7 +52,6 @@ function quiz(state = initialQuizState, action) {
         answerTwoId: action.payload.answers[1].answer_id,
         answerTwoText: action.payload.answers[1].text,
         isDoneFetching: true
-        //add all of your quiz readout changes here
       } 
     case FETCHING_QUIZ:
       return {
@@ -111,7 +108,6 @@ const initialFormState = {
   newQuestion: '',
   newTrueAnswer: '',
   newFalseAnswer: '',
-  // submitQuizDisabled: true,
 }
 
 function form(state = initialFormState, action) {
@@ -121,11 +117,6 @@ function form(state = initialFormState, action) {
         ...state,
         [action.payload]: action.value,
       }
-    // case DISABLE_CHANGE:
-    //   return {
-    //     ...state,
-    //     submitQuizDisabled: false,
-    //   }
     case RESET_FORM:
       return  form = initialFormState;
     default:

@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react'
 import { connect } from 'react-redux'
 import {setQuiz,
     inputChange,
-    // disableChange,
     postQuiz,
     resetForm
   } from '../state/action-creators'

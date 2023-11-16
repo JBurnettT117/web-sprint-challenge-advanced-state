@@ -8,11 +8,9 @@ import { MOVE_CLOCKWISE,
   SET_SELECTED_ANSWER2,
   SET_INFO_MESSAGE, 
   INPUT_CHANGE,
-  // DISABLE_CHANGE,
   RESET_FORM
 } from "./action-types";
 
-// ❗ You don't need to add extra action creators to achieve MVP
 export function moveClockwise(state) {
   return {
     type: MOVE_CLOCKWISE,
@@ -52,31 +50,19 @@ export function inputChange(field, value, props) {
   }
 }
 
-// export function disableChange(props) {
-//   return {
-//     type: DISABLE_CHANGE,
-//     payload: props
-//   }
-// }
-
 export function resetForm() {
   return {
     type: RESET_FORM
   }
 }
 
-// ❗ Async action creators
-//this is for getting the question
 export function fetchQuiz(state) {
 
   return function (dispatch) {
-    // First, dispatch an action to reset the quiz state (so the "Loading next quiz..." message can display)
     dispatch({type: FETCHING_QUIZ})
 
     axios.get("http://localhost:9000/api/quiz/next")
     .then((res)=> {
-      // On successful GET:
-      // - Dispatch an action to send the obtained quiz to its state
       dispatch({type: SET_QUIZ_INTO_STATE, payload: res.data, state})
     })
     .catch((err) => {
@@ -85,7 +71,6 @@ export function fetchQuiz(state) {
     
   }
 }
-//this is for answering the question
 export function postAnswer(state) {
   return function (dispatch) {
     if(state.selectedAnswer.firstAnswerSelected === true){
@@ -100,13 +85,10 @@ export function postAnswer(state) {
         .then((res) => {console.log(res.data);
           dispatch ({type: SET_INFO_MESSAGE, payload: res.data, state })
         })
-    };//submit quiz button needs to be disabled until answer is selected
+    };
     state.fetchQuiz(state);
-    // On successful POST:
-    // - Dispatch the fetching of the next quiz
   }
 }
-//this is for posting your own question
 export function postQuiz(state) {
   return function (dispatch) {
     const payload = {question_text: state.form.newQuestion, 
@@ -117,13 +99,8 @@ export function postQuiz(state) {
       .then(res => {if(res.status === 201){
         console.log(res);
         dispatch ({type: SET_INFO_MESSAGE, payload:{ message: `Congrats: "${res.data.question}" is a great question!`, state}})
-        //put the form reset here
         }else{
         console.log("Error: ", res);
         }})
-    // On successful POST:
-    // - Dispatch the correct message to the the appropriate state
-    // - Dispatch the resetting of the form
   }
 }
-// ❗ On promise rejections, use log statements or breakpoints, and put an appropriate error message in state

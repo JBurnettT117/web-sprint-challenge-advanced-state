@@ -78,17 +78,22 @@ export function postAnswer(state) {
       axios.post("http://localhost:9000/api/quiz/answer", payload)
         .then((res) => {console.log(res.data);
           dispatch ({type: SET_INFO_MESSAGE, payload: res.data, state })
+          state.fetchQuiz(state);
         })
     } else if(state.selectedAnswer.secondAnswerSelected === true){
       const payload = {quiz_id: state.quiz.quiz_id ,answer_id: state.quiz.answerTwoId }
       axios.post("http://localhost:9000/api/quiz/answer", payload)
         .then((res) => {console.log(res.data);
           dispatch ({type: SET_INFO_MESSAGE, payload: res.data, state })
+          state.fetchQuiz(state);
         })
+
     };
     state.fetchQuiz(state);
+
+    };
   }
-}
+
 export function postQuiz(state) {
   return function (dispatch) {
     const payload = {question_text: state.form.newQuestion, 
